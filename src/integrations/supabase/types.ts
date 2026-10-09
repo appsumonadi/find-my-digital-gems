@@ -94,6 +94,30 @@ export type Database = {
           },
         ]
       }
+      login_attempts: {
+        Row: {
+          created_at: string
+          email: string
+          id: number
+          ip: string
+          success: boolean
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: never
+          ip: string
+          success: boolean
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: never
+          ip?: string
+          success?: boolean
+        }
+        Relationships: []
+      }
       offer_input_fields: {
         Row: {
           id: string
