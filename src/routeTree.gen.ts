@@ -10,33 +10,152 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiV1CategoriesRouteImport } from './routes/api/v1/categories'
+import { Route as ApiV1FavoritesRouteImport } from './routes/api/v1/favorites'
+import { Route as ApiV1OffersRouteImport } from './routes/api/v1/offers'
+import { Route as ApiV1SearchRouteImport } from './routes/api/v1/search'
+import { Route as ApiV1AuthLoginRouteImport } from './routes/api/v1/auth.login'
+import { Route as ApiV1AuthMeRouteImport } from './routes/api/v1/auth.me'
+import { Route as ApiV1FavoritesOfferIdRouteImport } from './routes/api/v1/favorites.$offerId'
+import { Route as ApiV1OffersIdRouteImport } from './routes/api/v1/offers.$id'
+import { Route as ApiV1SellersIdRouteImport } from './routes/api/v1/sellers.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiV1CategoriesRoute = ApiV1CategoriesRouteImport.update({
+  id: '/api/v1/categories',
+  path: '/api/v1/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1FavoritesRoute = ApiV1FavoritesRouteImport.update({
+  id: '/api/v1/favorites',
+  path: '/api/v1/favorites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1OffersRoute = ApiV1OffersRouteImport.update({
+  id: '/api/v1/offers',
+  path: '/api/v1/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1SearchRoute = ApiV1SearchRouteImport.update({
+  id: '/api/v1/search',
+  path: '/api/v1/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1AuthLoginRoute = ApiV1AuthLoginRouteImport.update({
+  id: '/api/v1/auth/login',
+  path: '/api/v1/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1AuthMeRoute = ApiV1AuthMeRouteImport.update({
+  id: '/api/v1/auth/me',
+  path: '/api/v1/auth/me',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1FavoritesOfferIdRoute = ApiV1FavoritesOfferIdRouteImport.update({
+  id: '/$offerId',
+  path: '/$offerId',
+  getParentRoute: () => ApiV1FavoritesRoute,
+} as any)
+const ApiV1OffersIdRoute = ApiV1OffersIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ApiV1OffersRoute,
+} as any)
+const ApiV1SellersIdRoute = ApiV1SellersIdRouteImport.update({
+  id: '/api/v1/sellers/$id',
+  path: '/api/v1/sellers/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/v1/categories': typeof ApiV1CategoriesRoute
+  '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
+  '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
+  '/api/v1/search': typeof ApiV1SearchRoute
+  '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
+  '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
+  '/api/v1/offers/$id': typeof ApiV1OffersIdRoute
+  '/api/v1/sellers/$id': typeof ApiV1SellersIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/v1/categories': typeof ApiV1CategoriesRoute
+  '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
+  '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
+  '/api/v1/search': typeof ApiV1SearchRoute
+  '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
+  '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
+  '/api/v1/offers/$id': typeof ApiV1OffersIdRoute
+  '/api/v1/sellers/$id': typeof ApiV1SellersIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/v1/categories': typeof ApiV1CategoriesRoute
+  '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
+  '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
+  '/api/v1/search': typeof ApiV1SearchRoute
+  '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
+  '/api/v1/auth/me': typeof ApiV1AuthMeRoute
+  '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
+  '/api/v1/offers/$id': typeof ApiV1OffersIdRoute
+  '/api/v1/sellers/$id': typeof ApiV1SellersIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/api/v1/categories'
+    | '/api/v1/favorites'
+    | '/api/v1/offers'
+    | '/api/v1/search'
+    | '/api/v1/auth/login'
+    | '/api/v1/auth/me'
+    | '/api/v1/favorites/$offerId'
+    | '/api/v1/offers/$id'
+    | '/api/v1/sellers/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/api/v1/categories'
+    | '/api/v1/favorites'
+    | '/api/v1/offers'
+    | '/api/v1/search'
+    | '/api/v1/auth/login'
+    | '/api/v1/auth/me'
+    | '/api/v1/favorites/$offerId'
+    | '/api/v1/offers/$id'
+    | '/api/v1/sellers/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/v1/categories'
+    | '/api/v1/favorites'
+    | '/api/v1/offers'
+    | '/api/v1/search'
+    | '/api/v1/auth/login'
+    | '/api/v1/auth/me'
+    | '/api/v1/favorites/$offerId'
+    | '/api/v1/offers/$id'
+    | '/api/v1/sellers/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiV1CategoriesRoute: typeof ApiV1CategoriesRoute
+  ApiV1FavoritesRoute: typeof ApiV1FavoritesRouteWithChildren
+  ApiV1OffersRoute: typeof ApiV1OffersRouteWithChildren
+  ApiV1SearchRoute: typeof ApiV1SearchRoute
+  ApiV1AuthLoginRoute: typeof ApiV1AuthLoginRoute
+  ApiV1AuthMeRoute: typeof ApiV1AuthMeRoute
+  ApiV1SellersIdRoute: typeof ApiV1SellersIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +167,105 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/v1/categories': {
+      id: '/api/v1/categories'
+      path: '/api/v1/categories'
+      fullPath: '/api/v1/categories'
+      preLoaderRoute: typeof ApiV1CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/favorites': {
+      id: '/api/v1/favorites'
+      path: '/api/v1/favorites'
+      fullPath: '/api/v1/favorites'
+      preLoaderRoute: typeof ApiV1FavoritesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/offers': {
+      id: '/api/v1/offers'
+      path: '/api/v1/offers'
+      fullPath: '/api/v1/offers'
+      preLoaderRoute: typeof ApiV1OffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/search': {
+      id: '/api/v1/search'
+      path: '/api/v1/search'
+      fullPath: '/api/v1/search'
+      preLoaderRoute: typeof ApiV1SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/auth/login': {
+      id: '/api/v1/auth/login'
+      path: '/api/v1/auth/login'
+      fullPath: '/api/v1/auth/login'
+      preLoaderRoute: typeof ApiV1AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/auth/me': {
+      id: '/api/v1/auth/me'
+      path: '/api/v1/auth/me'
+      fullPath: '/api/v1/auth/me'
+      preLoaderRoute: typeof ApiV1AuthMeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/v1/favorites/$offerId': {
+      id: '/api/v1/favorites/$offerId'
+      path: '/$offerId'
+      fullPath: '/api/v1/favorites/$offerId'
+      preLoaderRoute: typeof ApiV1FavoritesOfferIdRouteImport
+      parentRoute: typeof ApiV1FavoritesRoute
+    }
+    '/api/v1/offers/$id': {
+      id: '/api/v1/offers/$id'
+      path: '/$id'
+      fullPath: '/api/v1/offers/$id'
+      preLoaderRoute: typeof ApiV1OffersIdRouteImport
+      parentRoute: typeof ApiV1OffersRoute
+    }
+    '/api/v1/sellers/$id': {
+      id: '/api/v1/sellers/$id'
+      path: '/api/v1/sellers/$id'
+      fullPath: '/api/v1/sellers/$id'
+      preLoaderRoute: typeof ApiV1SellersIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface ApiV1FavoritesRouteChildren {
+  ApiV1FavoritesOfferIdRoute: typeof ApiV1FavoritesOfferIdRoute
+}
+
+const ApiV1FavoritesRouteChildren: ApiV1FavoritesRouteChildren = {
+  ApiV1FavoritesOfferIdRoute: ApiV1FavoritesOfferIdRoute,
+}
+
+const ApiV1FavoritesRouteWithChildren = ApiV1FavoritesRoute._addFileChildren(
+  ApiV1FavoritesRouteChildren,
+)
+
+interface ApiV1OffersRouteChildren {
+  ApiV1OffersIdRoute: typeof ApiV1OffersIdRoute
+}
+
+const ApiV1OffersRouteChildren: ApiV1OffersRouteChildren = {
+  ApiV1OffersIdRoute: ApiV1OffersIdRoute,
+}
+
+const ApiV1OffersRouteWithChildren = ApiV1OffersRoute._addFileChildren(
+  ApiV1OffersRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiV1CategoriesRoute: ApiV1CategoriesRoute,
+  ApiV1FavoritesRoute: ApiV1FavoritesRouteWithChildren,
+  ApiV1OffersRoute: ApiV1OffersRouteWithChildren,
+  ApiV1SearchRoute: ApiV1SearchRoute,
+  ApiV1AuthLoginRoute: ApiV1AuthLoginRoute,
+  ApiV1AuthMeRoute: ApiV1AuthMeRoute,
+  ApiV1SellersIdRoute: ApiV1SellersIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
