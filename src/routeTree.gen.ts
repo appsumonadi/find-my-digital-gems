@@ -10,10 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as CatalogCategorySlugRouteImport } from './routes/catalog.$categorySlug'
+import { Route as SellerIdRouteImport } from './routes/seller.$id'
 import { Route as ApiV1CategoriesRouteImport } from './routes/api/v1/categories'
 import { Route as ApiV1FavoritesRouteImport } from './routes/api/v1/favorites'
 import { Route as ApiV1OffersRouteImport } from './routes/api/v1/offers'
 import { Route as ApiV1SearchRouteImport } from './routes/api/v1/search'
+import { Route as CatalogProductOfferRouteImport } from './routes/catalog.product.$offer'
 import { Route as ApiV1AuthLoginRouteImport } from './routes/api/v1/auth.login'
 import { Route as ApiV1AuthMeRouteImport } from './routes/api/v1/auth.me'
 import { Route as ApiV1FavoritesOfferIdRouteImport } from './routes/api/v1/favorites.$offerId'
@@ -23,6 +27,21 @@ import { Route as ApiV1SellersIdRouteImport } from './routes/api/v1/sellers.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatalogCategorySlugRoute = CatalogCategorySlugRouteImport.update({
+  id: '/catalog/$categorySlug',
+  path: '/catalog/$categorySlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerIdRoute = SellerIdRouteImport.update({
+  id: '/seller/$id',
+  path: '/seller/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1CategoriesRoute = ApiV1CategoriesRouteImport.update({
@@ -43,6 +62,11 @@ const ApiV1OffersRoute = ApiV1OffersRouteImport.update({
 const ApiV1SearchRoute = ApiV1SearchRouteImport.update({
   id: '/api/v1/search',
   path: '/api/v1/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CatalogProductOfferRoute = CatalogProductOfferRouteImport.update({
+  id: '/catalog/product/$offer',
+  path: '/catalog/product/$offer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiV1AuthLoginRoute = ApiV1AuthLoginRouteImport.update({
@@ -73,10 +97,14 @@ const ApiV1SellersIdRoute = ApiV1SellersIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/search': typeof SearchRoute
+  '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
+  '/seller/$id': typeof SellerIdRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
   '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
   '/api/v1/search': typeof ApiV1SearchRoute
+  '/catalog/product/$offer': typeof CatalogProductOfferRoute
   '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
@@ -85,10 +113,14 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/search': typeof SearchRoute
+  '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
+  '/seller/$id': typeof SellerIdRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
   '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
   '/api/v1/search': typeof ApiV1SearchRoute
+  '/catalog/product/$offer': typeof CatalogProductOfferRoute
   '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
@@ -98,10 +130,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/search': typeof SearchRoute
+  '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
+  '/seller/$id': typeof SellerIdRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
   '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
   '/api/v1/search': typeof ApiV1SearchRoute
+  '/catalog/product/$offer': typeof CatalogProductOfferRoute
   '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
@@ -112,10 +148,14 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/search'
+    | '/catalog/$categorySlug'
+    | '/seller/$id'
     | '/api/v1/categories'
     | '/api/v1/favorites'
     | '/api/v1/offers'
     | '/api/v1/search'
+    | '/catalog/product/$offer'
     | '/api/v1/auth/login'
     | '/api/v1/auth/me'
     | '/api/v1/favorites/$offerId'
@@ -124,10 +164,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/search'
+    | '/catalog/$categorySlug'
+    | '/seller/$id'
     | '/api/v1/categories'
     | '/api/v1/favorites'
     | '/api/v1/offers'
     | '/api/v1/search'
+    | '/catalog/product/$offer'
     | '/api/v1/auth/login'
     | '/api/v1/auth/me'
     | '/api/v1/favorites/$offerId'
@@ -136,10 +180,14 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/search'
+    | '/catalog/$categorySlug'
+    | '/seller/$id'
     | '/api/v1/categories'
     | '/api/v1/favorites'
     | '/api/v1/offers'
     | '/api/v1/search'
+    | '/catalog/product/$offer'
     | '/api/v1/auth/login'
     | '/api/v1/auth/me'
     | '/api/v1/favorites/$offerId'
@@ -149,10 +197,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SearchRoute: typeof SearchRoute
+  CatalogCategorySlugRoute: typeof CatalogCategorySlugRoute
+  SellerIdRoute: typeof SellerIdRoute
   ApiV1CategoriesRoute: typeof ApiV1CategoriesRoute
   ApiV1FavoritesRoute: typeof ApiV1FavoritesRouteWithChildren
   ApiV1OffersRoute: typeof ApiV1OffersRouteWithChildren
   ApiV1SearchRoute: typeof ApiV1SearchRoute
+  CatalogProductOfferRoute: typeof CatalogProductOfferRoute
   ApiV1AuthLoginRoute: typeof ApiV1AuthLoginRoute
   ApiV1AuthMeRoute: typeof ApiV1AuthMeRoute
   ApiV1SellersIdRoute: typeof ApiV1SellersIdRoute
@@ -165,6 +217,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/catalog/$categorySlug': {
+      id: '/catalog/$categorySlug'
+      path: '/catalog/$categorySlug'
+      fullPath: '/catalog/$categorySlug'
+      preLoaderRoute: typeof CatalogCategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller/$id': {
+      id: '/seller/$id'
+      path: '/seller/$id'
+      fullPath: '/seller/$id'
+      preLoaderRoute: typeof SellerIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/categories': {
@@ -193,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/api/v1/search'
       fullPath: '/api/v1/search'
       preLoaderRoute: typeof ApiV1SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/catalog/product/$offer': {
+      id: '/catalog/product/$offer'
+      path: '/catalog/product/$offer'
+      fullPath: '/catalog/product/$offer'
+      preLoaderRoute: typeof CatalogProductOfferRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/auth/login': {
@@ -259,10 +339,14 @@ const ApiV1OffersRouteWithChildren = ApiV1OffersRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SearchRoute: SearchRoute,
+  CatalogCategorySlugRoute: CatalogCategorySlugRoute,
+  SellerIdRoute: SellerIdRoute,
   ApiV1CategoriesRoute: ApiV1CategoriesRoute,
   ApiV1FavoritesRoute: ApiV1FavoritesRouteWithChildren,
   ApiV1OffersRoute: ApiV1OffersRouteWithChildren,
   ApiV1SearchRoute: ApiV1SearchRoute,
+  CatalogProductOfferRoute: CatalogProductOfferRoute,
   ApiV1AuthLoginRoute: ApiV1AuthLoginRoute,
   ApiV1AuthMeRoute: ApiV1AuthMeRoute,
   ApiV1SellersIdRoute: ApiV1SellersIdRoute,
