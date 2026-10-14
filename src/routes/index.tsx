@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { categoryTreeQuery } from "@/lib/catalog.functions";
+import { getRouteApi } from "@tanstack/react-router";
+import type { CategoryNode } from "@/lib/catalog.schemas";
 import { flatten, offersInfiniteQuery } from "@/lib/queries";
 import { QuickChips } from "@/components/site/Header";
 import { OfferGrid } from "@/components/site/OfferCard";
@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { data: tree } = useSuspenseQuery(categoryTreeQuery());
+  const tree = getRouteApi("__root__").useLoaderData() as CategoryNode[];
   const all = flatten(tree);
   const tiles = all.filter((c) => c.parent_id === null || c.children.length === 0).slice(0, 8);
   return (
