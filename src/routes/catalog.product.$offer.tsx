@@ -61,7 +61,7 @@ function FavoriteButton({ offerId }: { offerId: number }) {
           ? await supabase.from("favorites").delete().eq("offer_id", offerId).eq("user_id", user.id)
           : await supabase.from("favorites").insert({ offer_id: offerId, user_id: user.id });
         setBusy(false);
-        if (error) return toast.error("Couldn't update favorites");
+        if (error) { toast.error("Could not update favorites"); return; }
         toast.success(isFav ? "Removed from favorites" : "Added to favorites");
         qc.invalidateQueries({ queryKey: ["favorites", user.id] });
       }}

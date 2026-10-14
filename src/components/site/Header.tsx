@@ -1,5 +1,4 @@
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { Link, useNavigate, getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
 import { Heart, LayoutGrid, Monitor, Moon, Package, Search, Sun, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,7 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { categoryTreeQuery } from "@/lib/catalog.functions";
 import { flatten } from "@/lib/queries";
 import type { CategoryNode } from "@/lib/catalog.schemas";
 import { useAuth } from "@/hooks/useAuth";
@@ -110,7 +108,7 @@ function ProfileMenu() {
 }
 
 export function Header() {
-  const { data: tree = [] } = useQuery(categoryTreeQuery());
+  const tree = getRouteApi("__root__").useLoaderData() as CategoryNode[];
   const hot = flatten(tree).filter((c) => c.show_in_header);
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");

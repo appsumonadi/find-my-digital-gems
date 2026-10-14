@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import { categoryTreeQuery } from "@/lib/catalog.functions";
+import { getRouteApi } from "@tanstack/react-router";
+import type { CategoryNode } from "@/lib/catalog.schemas";
 import { OfferGrid } from "@/components/site/OfferCard";
 
 const schema = z.object({
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/search")({
 function SearchPage() {
   const { q, category } = Route.useSearch();
   const navigate = Route.useNavigate();
-  const { data: tree } = useSuspenseQuery(categoryTreeQuery());
+  const tree = getRouteApi("__root__").useLoaderData() as CategoryNode[];
   const term = q.trim();
   return (
     <div className="mx-auto max-w-7xl space-y-5 px-4 py-6">
