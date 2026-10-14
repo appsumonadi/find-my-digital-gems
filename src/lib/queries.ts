@@ -4,7 +4,7 @@ import type { CategoryNode, OfferSort } from "./catalog.schemas";
 import { supabase } from "@/integrations/supabase/client";
 import type { OfferCardDTO } from "./catalog.schemas";
 
-export type OfferFilter = { categorySlug?: string; sellerId?: string; q?: string; sort?: OfferSort };
+export type OfferFilter = { categorySlug?: string | undefined; sellerId?: string; q?: string; sort?: OfferSort };
 
 export const offersInfiniteQuery = (f: OfferFilter) =>
   infiniteQueryOptions({
