@@ -1,7 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 import { fetchSeller } from "@/lib/catalog.functions";
-import { offersInfiniteQuery } from "@/lib/queries";
 import { OfferGrid } from "@/components/site/OfferCard";
 
 export const Route = createFileRoute("/seller/$id")({
@@ -9,7 +8,6 @@ export const Route = createFileRoute("/seller/$id")({
     if (!/^[0-9a-f-]{36}$/i.test(params.id)) throw notFound();
     const s = await fetchSeller({ data: { id: params.id } });
     if (!s) throw notFound();
-    await context.queryClient.prefetchInfiniteQuery(offersInfiniteQuery({ sellerId: params.id }));
     return s;
   },
   head: ({ loaderData }) => {

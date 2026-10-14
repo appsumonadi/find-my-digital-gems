@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getRouteApi } from "@tanstack/react-router";
 import type { CategoryNode } from "@/lib/catalog.schemas";
-import { flatten, offersInfiniteQuery } from "@/lib/queries";
+import { flatten } from "@/lib/queries";
 import { QuickChips } from "@/components/site/Header";
 import { OfferGrid } from "@/components/site/OfferCard";
 
@@ -14,7 +14,6 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Robux, game keys, gift cards and subscriptions from trusted sellers." },
     ],
   }),
-  loader: ({ context }) => context.queryClient.prefetchInfiniteQuery(offersInfiniteQuery({ sort: "popular" })),
   component: Index,
 });
 

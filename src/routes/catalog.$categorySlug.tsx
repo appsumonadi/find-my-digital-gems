@@ -2,7 +2,6 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { fetchCategory } from "@/lib/catalog.functions";
-import { offersInfiniteQuery } from "@/lib/queries";
 import { OfferGrid } from "@/components/site/OfferCard";
 import { Crumbs } from "@/components/site/Crumbs";
 
@@ -15,7 +14,6 @@ export const Route = createFileRoute("/catalog/$categorySlug")({
     if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(params.categorySlug)) throw notFound();
     const data = await fetchCategory({ data: { slug: params.categorySlug } });
     if (!data) throw notFound();
-    await context.queryClient.prefetchInfiniteQuery(offersInfiniteQuery({ categorySlug: params.categorySlug, sort: deps.sort }));
     return data;
   },
   head: ({ loaderData }) => {
