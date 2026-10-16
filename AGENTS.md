@@ -13,3 +13,4 @@
 - Storefront data access lives in `src/lib/catalog.server.ts`, shared by server functions (UI) and REST routes under `src/routes/api/v1` — one source of truth for queries.
 - The category tree is passed via the root route loader data (not the query cache) — avoids SSR hydration mismatches without SSR query dehydration.
 - Offer grids load client-side with cursor-based infinite queries — "Show more" pagination, no page numbers.
+- Decorative dust is rendered in a shared non-interactive canvas with reduced-motion support; background and button effects use global semantic tokens so both themes stay consistent.
