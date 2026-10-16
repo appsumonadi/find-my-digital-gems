@@ -17,6 +17,7 @@ import type { CategoryNode } from "@/lib/catalog.schemas";
 import { useAuth } from "@/hooks/useAuth";
 import { useTheme, type Theme } from "@/lib/theme";
 import { supabase } from "@/integrations/supabase/client";
+import { GlowPicker } from "./GlowPicker";
 
 export function Logo() {
   return (
@@ -128,7 +129,7 @@ export function Header() {
           </SheetContent>
         </Sheet>
         <form
-          className="relative flex-1"
+          className="relative min-w-0 flex-1"
           onSubmit={(e) => {
             e.preventDefault();
             if (q.trim()) navigate({ to: "/search", search: { q: q.trim() } });
@@ -140,6 +141,7 @@ export function Header() {
         <Link to="/sell" className="hidden text-sm font-medium hover:text-primary lg:block">Start selling</Link>
         <Button asChild variant="ghost" size="icon" aria-label="Favorites"><Link to="/favorites"><Heart className="h-5 w-5" /></Link></Button>
         <Button asChild variant="ghost" size="icon" aria-label="Orders" className="hidden sm:inline-flex"><Link to="/orders"><Package className="h-5 w-5" /></Link></Button>
+        <GlowPicker />
         <ProfileMenu />
       </div>
       {hot.length > 0 && <QuickChips items={hot} className="mx-auto max-w-7xl px-4 pb-3" />}

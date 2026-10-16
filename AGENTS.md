@@ -14,3 +14,4 @@
 - The category tree is passed via the root route loader data (not the query cache) — avoids SSR hydration mismatches without SSR query dehydration.
 - Offer grids load client-side with cursor-based infinite queries — "Show more" pagination, no page numbers.
 - Decorative dust is rendered in a shared non-interactive canvas with reduced-motion support; background and button effects use global semantic tokens so both themes stay consistent.
+- Glow selection is stored locally and applied through a root data attribute and semantic token overrides; the dust observes that attribute so its color changes with the controls.

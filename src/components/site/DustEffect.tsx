@@ -53,7 +53,7 @@ export function DustEffect() {
       frame = requestAnimationFrame(draw);
     };
     const themeObserver = new MutationObserver(restart);
-    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "data-glow"] });
     window.addEventListener("resize", restart);
     reducedMotion.addEventListener("change", restart);
     restart();
