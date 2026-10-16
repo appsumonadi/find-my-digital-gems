@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { DustEffect } from "@/components/site/DustEffect";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider, themeInitScript } from "@/lib/theme";
 import { categoryTreeQuery } from "@/lib/catalog.functions";
@@ -128,7 +129,8 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <ThemeProvider>
-        <div className="flex min-h-screen flex-col">
+        <DustEffect />
+        <div className="storefront-content flex min-h-screen flex-col">
           <Header />
           <main className="flex-1">
             <Outlet />
