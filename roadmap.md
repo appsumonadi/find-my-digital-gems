@@ -1,0 +1,9 @@
+# Roadmap
+
+- [ ] Add drifting dust, fading background, and stronger button glow; verify existing storefront.
+- [ ] Enable Stripe test payments. Blocked: built-in payments requires a paid plan; alternatively the user must explicitly choose their own Stripe test account.
+- [ ] Implement secure checkout, 15-minute reservations and expiry job, coupons, fees, and order storage after payment setup.
+- [ ] Implement verified idempotent payment webhooks, transactional encrypted code delivery, and refunds.
+- [ ] Implement private buyer/guest order pages, reveal auditing, purchase history, and test email notifications.
+- [ ] Implement seller manual delivery with status filters and 12-hour deadlines.
+- [ ] Test pricing, reservation expiry, webhook idempotency, double-delivery prevention, and both purchase flows.
