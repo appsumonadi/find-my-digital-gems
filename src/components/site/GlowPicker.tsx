@@ -13,13 +13,13 @@ export function GlowPicker() {
       const saved = localStorage.getItem("juj-glow");
       const selected = colors.find((value) => value === saved) ?? "green";
       setColor(selected);
-      document.documentElement.dataset.glow = selected;
+      document.documentElement.dataset["glow"] = selected;
     } catch { /* Storage may be unavailable. Keep the default. */ }
   }, []);
 
   function select(value: GlowColor) {
     setColor(value);
-    document.documentElement.dataset.glow = value;
+    document.documentElement.dataset["glow"] = value;
     try { localStorage.setItem("juj-glow", value); } catch { /* Still apply for this visit. */ }
   }
 

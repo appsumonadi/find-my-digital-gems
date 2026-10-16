@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Bring dust in front and add a persistent green/orange/yellow/blue glow icon selector.
+- [x] Bring dust in front and add a persistent green/orange/yellow/blue glow icon selector; checked all choices and mobile layout.
 
 - [x] Add drifting dust, fading background, and stronger button glow; verified desktop/mobile rendering without runtime errors.
 - [ ] Enable Stripe test payments. Blocked: built-in payments requires a paid plan; alternatively the user must explicitly choose their own Stripe test account.
