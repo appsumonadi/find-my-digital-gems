@@ -61,6 +61,45 @@ export type Database = {
           },
         ]
       }
+      coupons: {
+        Row: {
+          code: string
+          id: string
+          is_active: boolean
+          min_total: number
+          type: Database["public"]["Enums"]["coupon_type"]
+          usage_limit: number | null
+          used_count: number
+          valid_from: string | null
+          valid_to: string | null
+          value: number
+        }
+        Insert: {
+          code: string
+          id?: string
+          is_active?: boolean
+          min_total?: number
+          type: Database["public"]["Enums"]["coupon_type"]
+          usage_limit?: number | null
+          used_count?: number
+          valid_from?: string | null
+          valid_to?: string | null
+          value: number
+        }
+        Update: {
+          code?: string
+          id?: string
+          is_active?: boolean
+          min_total?: number
+          type?: Database["public"]["Enums"]["coupon_type"]
+          usage_limit?: number | null
+          used_count?: number
+          valid_from?: string | null
+          valid_to?: string | null
+          value?: number
+        }
+        Relationships: []
+      }
       favorites: {
         Row: {
           created_at: string
@@ -266,6 +305,174 @@ export type Database = {
           },
         ]
       }
+      order_items: {
+        Row: {
+          buyer_inputs: Json
+          commission_minor: number
+          delivered_at: string | null
+          id: string
+          offer_id: number
+          option_id: string | null
+          order_id: string
+          qty: number
+          seller_id: string
+          status: Database["public"]["Enums"]["order_status"]
+          unit_price_minor: number
+        }
+        Insert: {
+          buyer_inputs?: Json
+          commission_minor?: number
+          delivered_at?: string | null
+          id?: string
+          offer_id: number
+          option_id?: string | null
+          order_id: string
+          qty?: number
+          seller_id: string
+          status?: Database["public"]["Enums"]["order_status"]
+          unit_price_minor: number
+        }
+        Update: {
+          buyer_inputs?: Json
+          commission_minor?: number
+          delivered_at?: string | null
+          id?: string
+          offer_id?: number
+          option_id?: string | null
+          order_id?: string
+          qty?: number
+          seller_id?: string
+          status?: Database["public"]["Enums"]["order_status"]
+          unit_price_minor?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_offer_id_fkey"
+            columns: ["offer_id"]
+            isOneToOne: false
+            referencedRelation: "offers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_option_id_fkey"
+            columns: ["option_id"]
+            isOneToOne: false
+            referencedRelation: "offer_options"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "seller_profiles"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          access_token_hash: string | null
+          buyer_id: string | null
+          coupon_id: string | null
+          created_at: string
+          currency: string
+          expires_at: string | null
+          guest_email: string | null
+          id: string
+          number: number
+          status: Database["public"]["Enums"]["order_status"]
+          total_minor: number
+        }
+        Insert: {
+          access_token_hash?: string | null
+          buyer_id?: string | null
+          coupon_id?: string | null
+          created_at?: string
+          currency?: string
+          expires_at?: string | null
+          guest_email?: string | null
+          id?: string
+          number?: never
+          status?: Database["public"]["Enums"]["order_status"]
+          total_minor?: number
+        }
+        Update: {
+          access_token_hash?: string | null
+          buyer_id?: string | null
+          coupon_id?: string | null
+          created_at?: string
+          currency?: string
+          expires_at?: string | null
+          guest_email?: string | null
+          id?: string
+          number?: never
+          status?: Database["public"]["Enums"]["order_status"]
+          total_minor?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount_minor: number
+          created_at: string
+          currency: string
+          id: string
+          method: string | null
+          order_id: string
+          provider: string
+          provider_ref: string | null
+          raw: Json
+          status: Database["public"]["Enums"]["payment_status"]
+        }
+        Insert: {
+          amount_minor: number
+          created_at?: string
+          currency?: string
+          id?: string
+          method?: string | null
+          order_id: string
+          provider: string
+          provider_ref?: string | null
+          raw?: Json
+          status?: Database["public"]["Enums"]["payment_status"]
+        }
+        Update: {
+          amount_minor?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          method?: string | null
+          order_id?: string
+          provider?: string
+          provider_ref?: string | null
+          raw?: Json
+          status?: Database["public"]["Enums"]["payment_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -377,8 +584,20 @@ export type Database = {
     }
     Enums: {
       app_role: "buyer" | "seller" | "admin"
+      coupon_type: "percent" | "fixed"
       delivery_type: "auto_codes" | "manual"
       offer_status: "draft" | "active" | "paused" | "archived"
+      order_status:
+        | "pending_payment"
+        | "paid"
+        | "delivering"
+        | "delivered"
+        | "completed"
+        | "cancelled"
+        | "refunded"
+        | "disputed"
+        | "needs_attention"
+      payment_status: "pending" | "succeeded" | "failed" | "refunded"
       user_status: "active" | "suspended" | "banned"
       verification_status: "unverified" | "pending" | "verified" | "rejected"
     }
@@ -509,8 +728,21 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["buyer", "seller", "admin"],
+      coupon_type: ["percent", "fixed"],
       delivery_type: ["auto_codes", "manual"],
       offer_status: ["draft", "active", "paused", "archived"],
+      order_status: [
+        "pending_payment",
+        "paid",
+        "delivering",
+        "delivered",
+        "completed",
+        "cancelled",
+        "refunded",
+        "disputed",
+        "needs_attention",
+      ],
+      payment_status: ["pending", "succeeded", "failed", "refunded"],
       user_status: ["active", "suspended", "banned"],
       verification_status: ["unverified", "pending", "verified", "rejected"],
     },
