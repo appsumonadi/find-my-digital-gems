@@ -15,12 +15,12 @@ export function DustEffect() {
     let width = 0;
     let height = 0;
     let color = "";
-    const particles = Array.from({ length: 56 }, (_, i) => ({
+    const particles = Array.from({ length: 100 }, (_, i) => ({
       x: ((i * 37 + 11) % 101) / 101,
       y: ((i * 53 + 17) % 103) / 103,
-      size: 0.6 + (i % 3) * 0.4,
+      size: 1.5 + (i % 3) * 0.7,
       speed: 0.008 + (i % 5) * 0.002,
-      opacity: 0.2 + (i % 4) * 0.13,
+      opacity: 0.65 + (i % 4) * 0.1,
     }));
     const resize = () => {
       width = window.innerWidth;
@@ -36,13 +36,17 @@ export function DustEffect() {
       previous = now;
       context.clearRect(0, 0, width, height);
       context.fillStyle = color;
+      context.shadowColor = color;
+      context.shadowBlur = 5;
       for (const particle of particles) {
         if (!reducedMotion.matches) {
           particle.y = (particle.y - particle.speed * delta + 1) % 1;
           particle.x = (particle.x + particle.speed * delta * 0.35) % 1;
         }
         context.globalAlpha = particle.opacity;
-        context.fillRect(particle.x * width, particle.y * height, particle.size, particle.size);
+        context.beginPath();
+        context.arc(particle.x * width, particle.y * height, particle.size / 2, 0, Math.PI * 2);
+        context.fill();
       }
       if (!reducedMotion.matches) frame = requestAnimationFrame(draw);
     };
