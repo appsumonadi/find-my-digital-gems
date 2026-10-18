@@ -1,5 +1,6 @@
 # Roadmap
 
+- [x] Strengthen orange, blue, and yellow saturation and make dust more visible above text and images.
 - [x] Bring dust in front and add a persistent green/orange/yellow/blue glow icon selector; checked all choices and mobile layout.
 
 - [x] Add drifting dust, fading background, and stronger button glow; verified desktop/mobile rendering without runtime errors.
