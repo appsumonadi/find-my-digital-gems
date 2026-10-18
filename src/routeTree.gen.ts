@@ -16,10 +16,14 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SellRouteImport } from './routes/sell'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedFavoritesRouteImport } from './routes/_authenticated/favorites'
 import { Route as AuthenticatedOrdersRouteImport } from './routes/_authenticated/orders'
 import { Route as CatalogCategorySlugRouteImport } from './routes/catalog.$categorySlug'
 import { Route as SellerIdRouteImport } from './routes/seller.$id'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminOffersRouteImport } from './routes/_authenticated/admin.offers'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as ApiV1CategoriesRouteImport } from './routes/api/v1/categories'
 import { Route as ApiV1FavoritesRouteImport } from './routes/api/v1/favorites'
 import { Route as ApiV1OffersRouteImport } from './routes/api/v1/offers'
@@ -65,6 +69,11 @@ const SellRoute = SellRouteImport.update({
   path: '/sell',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedFavoritesRoute = AuthenticatedFavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
@@ -84,6 +93,22 @@ const SellerIdRoute = SellerIdRouteImport.update({
   id: '/seller/$id',
   path: '/seller/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminOffersRoute =
+  AuthenticatedAdminOffersRouteImport.update({
+    id: '/offers',
+    path: '/offers',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
 const ApiV1CategoriesRoute = ApiV1CategoriesRouteImport.update({
   id: '/api/v1/categories',
@@ -143,15 +168,19 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/sell': typeof SellRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/favorites': typeof AuthenticatedFavoritesRoute
   '/orders': typeof AuthenticatedOrdersRoute
   '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
   '/seller/$id': typeof SellerIdRoute
+  '/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
   '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
   '/api/v1/search': typeof ApiV1SearchRoute
   '/catalog/product/$offer': typeof CatalogProductOfferRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
@@ -169,11 +198,14 @@ export interface FileRoutesByTo {
   '/orders': typeof AuthenticatedOrdersRoute
   '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
   '/seller/$id': typeof SellerIdRoute
+  '/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
   '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
   '/api/v1/search': typeof ApiV1SearchRoute
   '/catalog/product/$offer': typeof CatalogProductOfferRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
@@ -189,15 +221,19 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/search': typeof SearchRoute
   '/sell': typeof SellRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/favorites': typeof AuthenticatedFavoritesRoute
   '/_authenticated/orders': typeof AuthenticatedOrdersRoute
   '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
   '/seller/$id': typeof SellerIdRoute
+  '/_authenticated/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
   '/api/v1/offers': typeof ApiV1OffersRouteWithChildren
   '/api/v1/search': typeof ApiV1SearchRoute
   '/catalog/product/$offer': typeof CatalogProductOfferRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/v1/auth/login': typeof ApiV1AuthLoginRoute
   '/api/v1/auth/me': typeof ApiV1AuthMeRoute
   '/api/v1/favorites/$offerId': typeof ApiV1FavoritesOfferIdRoute
@@ -213,15 +249,19 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/search'
     | '/sell'
+    | '/admin'
     | '/favorites'
     | '/orders'
     | '/catalog/$categorySlug'
     | '/seller/$id'
+    | '/admin/offers'
+    | '/admin/users'
     | '/api/v1/categories'
     | '/api/v1/favorites'
     | '/api/v1/offers'
     | '/api/v1/search'
     | '/catalog/product/$offer'
+    | '/admin/'
     | '/api/v1/auth/login'
     | '/api/v1/auth/me'
     | '/api/v1/favorites/$offerId'
@@ -239,11 +279,14 @@ export interface FileRouteTypes {
     | '/orders'
     | '/catalog/$categorySlug'
     | '/seller/$id'
+    | '/admin/offers'
+    | '/admin/users'
     | '/api/v1/categories'
     | '/api/v1/favorites'
     | '/api/v1/offers'
     | '/api/v1/search'
     | '/catalog/product/$offer'
+    | '/admin'
     | '/api/v1/auth/login'
     | '/api/v1/auth/me'
     | '/api/v1/favorites/$offerId'
@@ -258,15 +301,19 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/search'
     | '/sell'
+    | '/_authenticated/admin'
     | '/_authenticated/favorites'
     | '/_authenticated/orders'
     | '/catalog/$categorySlug'
     | '/seller/$id'
+    | '/_authenticated/admin/offers'
+    | '/_authenticated/admin/users'
     | '/api/v1/categories'
     | '/api/v1/favorites'
     | '/api/v1/offers'
     | '/api/v1/search'
     | '/catalog/product/$offer'
+    | '/_authenticated/admin/'
     | '/api/v1/auth/login'
     | '/api/v1/auth/me'
     | '/api/v1/favorites/$offerId'
@@ -345,6 +392,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SellRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/favorites': {
       id: '/_authenticated/favorites'
       path: '/favorites'
@@ -372,6 +426,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/seller/$id'
       preLoaderRoute: typeof SellerIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/offers': {
+      id: '/_authenticated/admin/offers'
+      path: '/offers'
+      fullPath: '/admin/offers'
+      preLoaderRoute: typeof AuthenticatedAdminOffersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/api/v1/categories': {
       id: '/api/v1/categories'
@@ -446,12 +521,29 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminOffersRoute: typeof AuthenticatedAdminOffersRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminOffersRoute: AuthenticatedAdminOffersRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedFavoritesRoute: typeof AuthenticatedFavoritesRoute
   AuthenticatedOrdersRoute: typeof AuthenticatedOrdersRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedFavoritesRoute: AuthenticatedFavoritesRoute,
   AuthenticatedOrdersRoute: AuthenticatedOrdersRoute,
 }
