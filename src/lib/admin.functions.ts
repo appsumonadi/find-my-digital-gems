@@ -132,7 +132,8 @@ export const saveCategory = createServerFn({ method: "POST" })
   .inputValidator((d: unknown) => categoryInput.parse(d))
   .handler(async ({ data, context }) => {
     await requireAdmin(context as Ctx);
-    const { id, ...row } = data;
+    const { id, ...rest } = data;
+    const row = { ...rest, icon: rest.icon ?? null };
     if (id && row.parent_id === id) throw new Error("A category cannot be its own parent");
     const { error } = id
       ? await context.supabase.from("categories").update(row).eq("id", id)
