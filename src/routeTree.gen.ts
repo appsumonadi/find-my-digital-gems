@@ -22,7 +22,9 @@ import { Route as AuthenticatedOrdersRouteImport } from './routes/_authenticated
 import { Route as CatalogCategorySlugRouteImport } from './routes/catalog.$categorySlug'
 import { Route as SellerIdRouteImport } from './routes/seller.$id'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminCategoriesRouteImport } from './routes/_authenticated/admin.categories'
 import { Route as AuthenticatedAdminOffersRouteImport } from './routes/_authenticated/admin.offers'
+import { Route as AuthenticatedAdminOrdersRouteImport } from './routes/_authenticated/admin.orders'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 import { Route as ApiV1CategoriesRouteImport } from './routes/api/v1/categories'
 import { Route as ApiV1FavoritesRouteImport } from './routes/api/v1/favorites'
@@ -99,10 +101,22 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedAdminCategoriesRoute =
+  AuthenticatedAdminCategoriesRouteImport.update({
+    id: '/categories',
+    path: '/categories',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminOffersRoute =
   AuthenticatedAdminOffersRouteImport.update({
     id: '/offers',
     path: '/offers',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminOrdersRoute =
+  AuthenticatedAdminOrdersRouteImport.update({
+    id: '/orders',
+    path: '/orders',
     getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
@@ -173,7 +187,9 @@ export interface FileRoutesByFullPath {
   '/orders': typeof AuthenticatedOrdersRoute
   '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
   '/seller/$id': typeof SellerIdRoute
+  '/admin/categories': typeof AuthenticatedAdminCategoriesRoute
   '/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/admin/orders': typeof AuthenticatedAdminOrdersRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
@@ -198,7 +214,9 @@ export interface FileRoutesByTo {
   '/orders': typeof AuthenticatedOrdersRoute
   '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
   '/seller/$id': typeof SellerIdRoute
+  '/admin/categories': typeof AuthenticatedAdminCategoriesRoute
   '/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/admin/orders': typeof AuthenticatedAdminOrdersRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
@@ -226,7 +244,9 @@ export interface FileRoutesById {
   '/_authenticated/orders': typeof AuthenticatedOrdersRoute
   '/catalog/$categorySlug': typeof CatalogCategorySlugRoute
   '/seller/$id': typeof SellerIdRoute
+  '/_authenticated/admin/categories': typeof AuthenticatedAdminCategoriesRoute
   '/_authenticated/admin/offers': typeof AuthenticatedAdminOffersRoute
+  '/_authenticated/admin/orders': typeof AuthenticatedAdminOrdersRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/api/v1/categories': typeof ApiV1CategoriesRoute
   '/api/v1/favorites': typeof ApiV1FavoritesRouteWithChildren
@@ -254,7 +274,9 @@ export interface FileRouteTypes {
     | '/orders'
     | '/catalog/$categorySlug'
     | '/seller/$id'
+    | '/admin/categories'
     | '/admin/offers'
+    | '/admin/orders'
     | '/admin/users'
     | '/api/v1/categories'
     | '/api/v1/favorites'
@@ -279,7 +301,9 @@ export interface FileRouteTypes {
     | '/orders'
     | '/catalog/$categorySlug'
     | '/seller/$id'
+    | '/admin/categories'
     | '/admin/offers'
+    | '/admin/orders'
     | '/admin/users'
     | '/api/v1/categories'
     | '/api/v1/favorites'
@@ -306,7 +330,9 @@ export interface FileRouteTypes {
     | '/_authenticated/orders'
     | '/catalog/$categorySlug'
     | '/seller/$id'
+    | '/_authenticated/admin/categories'
     | '/_authenticated/admin/offers'
+    | '/_authenticated/admin/orders'
     | '/_authenticated/admin/users'
     | '/api/v1/categories'
     | '/api/v1/favorites'
@@ -434,11 +460,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/_authenticated/admin/categories': {
+      id: '/_authenticated/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AuthenticatedAdminCategoriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_authenticated/admin/offers': {
       id: '/_authenticated/admin/offers'
       path: '/offers'
       fullPath: '/admin/offers'
       preLoaderRoute: typeof AuthenticatedAdminOffersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/orders': {
+      id: '/_authenticated/admin/orders'
+      path: '/orders'
+      fullPath: '/admin/orders'
+      preLoaderRoute: typeof AuthenticatedAdminOrdersRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/users': {
@@ -522,13 +562,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminCategoriesRoute: typeof AuthenticatedAdminCategoriesRoute
   AuthenticatedAdminOffersRoute: typeof AuthenticatedAdminOffersRoute
+  AuthenticatedAdminOrdersRoute: typeof AuthenticatedAdminOrdersRoute
   AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminCategoriesRoute: AuthenticatedAdminCategoriesRoute,
   AuthenticatedAdminOffersRoute: AuthenticatedAdminOffersRoute,
+  AuthenticatedAdminOrdersRoute: AuthenticatedAdminOrdersRoute,
   AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
