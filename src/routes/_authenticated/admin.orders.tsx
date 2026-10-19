@@ -11,8 +11,8 @@ export const Route = createFileRoute("/_authenticated/admin/orders")({
   component: AdminOrders,
 });
 
-const variant = (s: string) =>
-  (["delivered", "completed", "paid"].includes(s) ? "default" : ["cancelled", "refunded"].includes(s) ? "destructive" : "secondary") as const;
+const variant = (s: string): "default" | "secondary" | "destructive" =>
+  ["delivered", "completed", "paid"].includes(s) ? "default" : ["cancelled", "refunded"].includes(s) ? "destructive" : "secondary";
 
 function AdminOrders() {
   const qc = useQueryClient();

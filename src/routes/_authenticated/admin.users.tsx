@@ -10,7 +10,8 @@ export const Route = createFileRoute("/_authenticated/admin/users")({
   component: AdminUsers,
 });
 
-const statusVariant = (s: string) => (s === "active" ? "default" : s === "suspended" ? "secondary" : "destructive") as const;
+const statusVariant = (s: string): "default" | "secondary" | "destructive" =>
+  s === "active" ? "default" : s === "suspended" ? "secondary" : "destructive";
 
 function AdminUsers() {
   const qc = useQueryClient();

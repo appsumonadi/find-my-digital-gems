@@ -22,7 +22,7 @@ const empty: Omit<Cat, "id"> = { parent_id: null, slug: "", name: "", icon: "", 
 function AdminCategories() {
   const qc = useQueryClient();
   const { data } = useQuery({ queryKey: ["admin", "categories"], queryFn: () => listAdminCategories() });
-  const [editing, setEditing] = useState<Partial<Cat> | null>(null);
+  const [editing, setEditing] = useState<(Omit<Cat, "id" | "icon"> & { id?: string; icon?: string | null }) | null>(null);
 
   const mut = useMutation({
     mutationFn: (v: any) => saveCategory({ data: v }),
