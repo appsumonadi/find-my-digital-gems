@@ -1,5 +1,5 @@
 import { Link, useNavigate, getRouteApi } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heart, LayoutGrid, Monitor, Moon, Package, Search, Sun, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -70,6 +70,11 @@ function ThemeItems() {
 function ProfileMenu() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+  useEffect(() => {
+    if (!user) { setIsAdmin(false); return; }
+    supabase.rpc("has_role", { _user_id: user.id, _role: "admin" }).then(({ data }) => setIsAdmin(!!data));
+  }, [user]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -84,6 +89,7 @@ function ProfileMenu() {
             <DropdownMenuLabel className="truncate font-normal text-muted-foreground">{user.email}</DropdownMenuLabel>
             <DropdownMenuItem asChild><Link to="/orders">My orders</Link></DropdownMenuItem>
             <DropdownMenuItem asChild><Link to="/favorites">Favorites</Link></DropdownMenuItem>
+            {isAdmin && <DropdownMenuItem asChild><Link to="/admin">Admin panel</Link></DropdownMenuItem>}
           </>
         ) : (
           <DropdownMenuItem asChild><Link to="/auth">Log in or sign up</Link></DropdownMenuItem>

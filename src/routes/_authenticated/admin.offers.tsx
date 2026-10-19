@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { listAdminOffers, setOfferStatus } from "@/lib/admin.functions";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { formatMoney } from "@/lib/money";
+import { formatPrice } from "@/lib/money";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/admin/offers")({
@@ -36,7 +36,7 @@ function AdminOffers() {
               {o.title}
             </Link>
             <p className="mt-0.5 text-sm text-muted-foreground">
-              {formatMoney(o.price_minor, o.currency)} · {o.category?.name} · by {o.seller?.display_name} · stock {o.stock_count} · sold {o.sales_count}
+              {formatPrice(o.price_minor, o.currency)} · {o.category?.name} · by {o.seller?.display_name} · stock {o.stock_count} · sold {o.sales_count}
             </p>
           </div>
           <Badge variant={o.status === "active" ? "default" : "secondary"}>{o.status}</Badge>
