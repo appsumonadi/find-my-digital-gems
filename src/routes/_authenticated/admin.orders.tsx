@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { listAdminOrders, setOrderStatus } from "@/lib/admin.functions";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { formatMoney } from "@/lib/money";
+import { formatPrice } from "@/lib/money";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/admin/orders")({
@@ -30,7 +30,7 @@ function AdminOrders() {
         <div key={o.id} className="rounded-xl border bg-card p-4">
           <div className="flex flex-wrap items-center gap-3">
             <div className="min-w-0 flex-1">
-              <p className="font-medium">Order #{o.number} · {formatMoney(o.total_minor, o.currency)}</p>
+              <p className="font-medium">Order #{o.number} · {formatPrice(o.total_minor, o.currency)}</p>
               <p className="text-sm text-muted-foreground">
                 {o.buyer?.email ?? o.guest_email ?? "guest"} · {new Date(o.created_at).toLocaleString()}
               </p>
@@ -51,7 +51,7 @@ function AdminOrders() {
           <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
             {(o.items ?? []).map((i: any) => (
               <li key={i.id}>
-                {i.qty}× {i.offer?.title ?? "offer"} — {formatMoney(i.unit_price_minor, o.currency)} each · commission {formatMoney(i.commission_minor, o.currency)} · <Badge variant="outline">{i.status}</Badge>
+                {i.qty}× {i.offer?.title ?? "offer"} — {formatPrice(i.unit_price_minor, o.currency)} each · commission {formatPrice(i.commission_minor, o.currency)} · <Badge variant="outline">{i.status}</Badge>
               </li>
             ))}
           </ul>
